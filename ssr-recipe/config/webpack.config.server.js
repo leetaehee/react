@@ -138,5 +138,9 @@ module.exports = {
   resolve: {
     modules: ["node_modules"],
   },
-  externals: [nodeExternals()],
+  externals: [
+    nodeExternals({
+      allowlist: [/@babel/],
+    }),
+  ],
 };
