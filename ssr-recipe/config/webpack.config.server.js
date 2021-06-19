@@ -26,7 +26,7 @@ module.exports = {
       {
         oneOf: [
           {
-            test: /\.(js|mjs|jsx|ts|tsx)&/,
+            test: /\.(js|mjs|jsx|ts|tsx)$/,
             include: paths.appSrc,
             loader: require.resolve("babel-loader"),
             options: {
@@ -48,7 +48,7 @@ module.exports = {
                     loaderMap: {
                       svg: {
                         ReactComponent:
-                          "@svgr/webpack?-svgo,++titleProp,+ref![path]",
+                          "@svgr/webpack?-svgo,+titleProp,+ref![path]",
                       },
                     },
                   },
