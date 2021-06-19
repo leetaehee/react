@@ -91,6 +91,22 @@ module.exports = {
                   importLoaders: 3,
                   modules: {
                     exportOnlyLocals: true,
+                  },
+                },
+              },
+              require.resolve("sass-loader"),
+            ],
+          },
+          {
+            test: sassRegex,
+            exclude: sassModuleRegex,
+            use: [
+              {
+                loader: require.resolve("css-loader"),
+                options: {
+                  importLoaders: 3,
+                  modules: {
+                    exportOnlyLocals: true,
                     getLocalIdent: getCSSModuleLocalIdent,
                   },
                 },
@@ -122,9 +138,5 @@ module.exports = {
   resolve: {
     modules: ["node_modules"],
   },
-  externals: [
-    nodeExternals({
-      allowlist: [/@babel/],
-    }),
-  ],
+  externals: [nodeExternals()],
 };
