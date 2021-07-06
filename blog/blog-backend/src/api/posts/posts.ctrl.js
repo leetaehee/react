@@ -11,8 +11,6 @@ import Post from '../../models/post';
 export const write = async ctx => {
   const { title,  body, tags } = ctx.request.body;
 
-  console.log(ctx.request);
-
   const post = new Post({
     title,
     body,
