@@ -1,4 +1,20 @@
 import Post from '../../models/post';
+import mongoose from 'mongoose';
+import Joi from 'joi';
+
+const { ObjectId } = mongoose.Types;
+
+export const checkObjectId = (ctx, next) => {
+  const { id } = ctx.params;
+
+  if (!ObjectId.isValid(id)) {
+    ctx.status = 400; // Bad Request
+    return;
+  }
+
+  return next();
+};
+
 
 /*
   POST /api/posts
@@ -9,8 +25,24 @@ import Post from '../../models/post';
   }
 */
 export const write = async ctx => {
-  const { title,  body, tags } = ctx.request.body;
+  const schema = Joi.object().keys({
+    // 객체가 다음 필드를 가지고 있음을 검증 
+    title: Joi.string().required(), // required()가 있으면 필수 항목 
+    body: Joi.string().required(),
+    tags: Joi.array()
+    .items(Joi.string())
+    .required(), // 문자열로 이루어진 배열
+  });
 
+  // 검증하고 나서 검증 실패인 경우 에러 처리
+  const result = schema.validate(ctx.request.body);
+  if (result.error) {
+    ctx.status = 400; // Bad Request
+    ctx.body = result.error;
+    return;
+  }
+
+  const { title,  body, tags } = ctx.request.body;
   const post = new Post({
     title,
     body,
@@ -77,6 +109,7 @@ export const remove = async ctx => {
 */
 export const update = async ctx => {
   const { id } = ctx.params;
+  console.log(id);
   try {
     const post = await Post.findByIdAndUpdate(id, ctx.request.body, {
       new: true, // 이 값을 설정 하면 업데이트 된 내용을 반환합니다,
