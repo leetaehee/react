@@ -10,6 +10,10 @@ const PostsSchema = new Schema({
         type: Date,
         default: Date.now,
     },
+    user: {
+        _id: mongoose.Types.ObjectId,
+        username: String,
+    }
 });
 
 const Post = mongoose.model('Post', PostsSchema);
