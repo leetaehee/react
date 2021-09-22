@@ -2,7 +2,7 @@ import { createAction, handleActions } from "redux-actions";
 import produce from 'immer';
 import { takeLatest } from 'redux-saga/effects';
 import createRequestSaga, { 
-    createRequestActionType 
+    createRequestActionTypes 
 } from "../lib/createRequestSaga";
 import * as authAPI from '../lib/api/auth';
 
@@ -20,11 +20,11 @@ const LOGIN_SUCCESS = 'auth/LOGIN_SUCCESS';
 const LOGIN_FAILURE = 'auth/LOGIN_FAILURE';
 */
 
-const [REGISTER, REGISTER_SUCCESS, REGISTER_FAILURE] = createRequestActionType(
+const [REGISTER, REGISTER_SUCCESS, REGISTER_FAILURE] = createRequestActionTypes(
     'auth/REGISTER',
 );
 
-const [LOGIN, LOGIN_SUCCESS, LOGIN_FAILURE] = createRequestActionType(
+const [LOGIN, LOGIN_SUCCESS, LOGIN_FAILURE] = createRequestActionTypes(
     'auth/LOGIN',
 );
 
